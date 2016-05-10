@@ -1,7 +1,8 @@
 @font Secundary;
 /* BRAND */
+/* NAVBAR */
 * {
-  /*border: 1px solid red*/
+  border: 1px solid red;
 }
 body {
   height: 100vh;
@@ -21,6 +22,7 @@ p {
 a:active :hover :link :visited {
   text-decoration: none;
 }
+/* FORM */
 .form {
   width: 70%;
   height: 50px;
@@ -50,6 +52,45 @@ a:active :hover :link :visited {
 .subscribe :focus {
   outline-width: 5px;
 }
+/* NAVBAR */
+.nav {
+  /*Nav Bar Margin Top*/
+  margin-top: 25px;
+  font-weight: 100;
+  font-size: 22.5px;
+}
+.nav > li > a {
+  /*Nav Bar Button Distance*/
+  padding: 15px 0px;
+  /*Nav Bar Button Color*/
+  color: white;
+}
+.login {
+  width: 120px;
+  height: 45px;
+  margin-top: 5px;
+  margin-left: 20px;
+  background: none;
+  font-size: 22.5px;
+  font-weight: 100;
+  border: 1px solid white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+.login :focus {
+  outline-width: 5px;
+}
+.login > a {
+  /*Login Button Color*/
+  color: white;
+}
+.navbar-toggle {
+  margin-top: 25px;
+  margin-right: 50px;
+}
+.icon-bar {
+  background-color: lime;
+}
 .input {
   color: lime;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -59,7 +100,6 @@ a:active :hover :link :visited {
   margin-bottom: 5px;
 }
 .block {
-  font-family: Arial;
   font-weight: lighter;
   color: lime;
   font-size: 40px;
@@ -74,8 +114,8 @@ a:active :hover :link :visited {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 35px;
-  margin-top: 30px;
-  margin-left: 50px;
+  margin-top: 25px;
+  margin-left: 70px;
   font-style: italic;
   text-align: center;
   text-decoration: inherit;
@@ -119,34 +159,6 @@ body:hover .card {
 body:hover .block {
   display: none;
   animation: blink 0s;
-}
-.login {
-  width: 120px;
-  height: 45px;
-  margin-left: 25px;
-  font-size: 15px;
-  font-weight: 100;
-  color: white;
-  border: 1px solid white;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: none;
-  text-decoration: none;
-}
-.login :focus {
-  outline-width: 5px;
-}
-/* NAVBAR */
-.nav {
-  /*Nav Bar Margin Top*/
-  margin-top: 25px;
-  color: white;
-  font-weight: 100;
-  font-size: 15px;
-  border-radius: 5px;
-}
-.nav > li > a {
-  /*Nav Bar Button Distance*/
-  padding: 0px 0px;
 }
 /* BANNER */
 .banner {
