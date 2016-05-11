@@ -1,0 +1,22 @@
+{
+  "name": "codeapps",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "XYZ"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/codeapps/website",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6"
+  }
+}

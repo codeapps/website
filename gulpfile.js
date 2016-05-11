@@ -1,9 +1,10 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
 var pug = require('gulp-pug');
+var bower = require('gulp-bower');
 var sync = require('browser-sync');
 var source = "src";
-var deploy = "app";
+var deploy = "dist";
 
 gulp.task('less', function () {
   return gulp.src(source + '/less/style.less')
@@ -17,7 +18,12 @@ gulp.task('pug', function () {
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task('sync', ['less', 'pug'], function() {
+gulp.task('bower', function() {
+  return bower(source + '/bower_components')
+    .pipe(gulp.dest(deploy))
+});
+
+gulp.task('sync', ['less', 'pug', 'bower'], function() {
   sync({
     server: {
       baseDir: deploy

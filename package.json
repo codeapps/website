@@ -11,6 +11,7 @@
   "devDependencies": {
     "browser-sync": "^2.12.5",
     "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
     "gulp-less": "^3.1.0",
     "gulp-pug": "^2.0.0",
     "pug": "^2.0.0-alpha6"
