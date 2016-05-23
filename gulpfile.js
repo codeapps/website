@@ -7,7 +7,7 @@ var source = "src";
 var deploy = "dist";
 
 gulp.task('less', function () {
-  return gulp.src(source + '/less/style.less')
+  return gulp.src(source + '/less/*.less')
     .pipe(less())
     .pipe(gulp.dest(deploy + '/css'))
 });

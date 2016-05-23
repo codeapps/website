@@ -1,7 +1,11 @@
 {
   "name": "codeapps",
   "description": "",
-  "main": "index.js",
+  "main": [
+    "index.js",
+    "./less/lesshat.less",
+    "./less/lesshat-prefixed.less"
+  ],
   "authors": [
     "XYZ"
   ],
@@ -13,7 +17,12 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "mixins",
+    "*.md",
+    "*.json",
+    "LICENCE",
+    ".*.*"
   ],
   "dependencies": {
     "jquery": "^2.2.3",
