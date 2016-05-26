@@ -1,10 +1,7 @@
 {
   "name": "codeapps",
   "description": "",
-  "main": [
-    "index.js",
-    "src/views/less/style.less"
-  ],
+  "main": [],
   "authors": [
     "XYZ"
   ],
@@ -15,16 +12,14 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests",
-    "mixins",
     "*.md",
     "*.json",
-    "LICENCE",
-    ".*.*"
+    "LICENSE",
+    ".*.*",
+    "src/"
   ],
   "dependencies": {
-    "jquery": "^2.2.3",
-    "bootstrap": "^3.3.6"
+    "jquery": "latest",
+    "bootstrap": "latest"
   }
 }

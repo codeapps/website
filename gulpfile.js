@@ -49,7 +49,7 @@ gulp.task('pug', function () {
 });
 
 gulp.task('bower', function() {
-  return bower(source + '/views/bower_components')
+  return bower('bower_modules/')
     .pipe(gulp.dest(deploy))
 });
 
