@@ -1,6 +1,10 @@
 # Dependency Directories
 node_modules/
 
-# Log 
+# Log
 *.log
 npm-debug.log*
+
+# System 
+
+.DS_Store
