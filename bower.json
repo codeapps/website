@@ -3,8 +3,7 @@
   "description": "",
   "main": [
     "index.js",
-    "./less/lesshat.less",
-    "./less/lesshat-prefixed.less"
+    "src/views/less/style.less"
   ],
   "authors": [
     "XYZ"

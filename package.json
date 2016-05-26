@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "Website",
   "main": "index.js",
-  "repository":
-  {
+  "repository": {
     "type": "git",
-    "url": "https://github.com/codeapps/website.git",
-
+    "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
     "sync": "gulp sync"
@@ -15,15 +13,23 @@
   "author": "XYZ",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "body-parser": "~1.13.2",
     "browser-sync": "^2.12.5",
+    "cookie-parser": "^1.4.2",
+    "debug": "~2.2.0",
+    "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-bower": "0.0.13",
     "gulp-clean-css": "^2.0.7",
+    "gulp-imagemin": "^3.0.1",
     "gulp-less": "^3.1.0",
     "gulp-postcss": "^6.1.1",
     "gulp-pug": "^2.0.0",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
     "gulp-uglify-cli": "^0.1.7",
-    "pug": "^2.0.0-alpha6"
+    "pug": "^2.0.0-alpha6",
+    "serve-favicon": "^2.3.0"
   }
 }

@@ -1,0 +1,244 @@
+@import "include/lesshat";
+
+/* FONTS */
+@fontPrimary: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@fontSize: 15px;
+@fontWeight: 100;
+
+/* BRAND */
+@brandWidth: 150px;
+@brandHeight: 100px;
+@brandFontSize: 35px;
+
+/* NAVBAR */
+@navbarMarginTop: 25px;
+
+/*
+* {
+  border: 1px solid red;
+}
+*/
+
+body {
+  height: 100vh;
+  width: 100%;
+  background: black;
+  font-smoothing: antialiased !important;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-weight: @fontWeight;
+  font-size: @fontSize;
+  color: white;
+}
+
+a:active :hover :link :visited{
+  text-decoration: none;
+}
+
+/* FORM */
+
+.form {
+  width: 70%;
+  height: 50px;
+  font-size: @fontSize;
+  padding-left: 15px;
+  font-weight: 100;
+  border: 1px solid white;
+  color: white;
+  font-family: @fontPrimary;
+  background: black;
+  text-decoration: none;
+  :focus {
+      outline-width: 5px;
+  }
+}
+
+.subscribe {
+  width: 25%;
+  height: 50px;
+  background: none;
+  font-size: @fontSize;
+  font-weight: 100;
+  color: white;
+  border: 1px solid white;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background: none;
+  text-decoration: none;
+  :focus {
+    outline-width: 5px;
+  }
+}
+
+/* NAVBAR */
+.nav {
+  /*Nav Bar Margin Top*/
+  margin-top: @navbarMarginTop;
+  font-weight: @fontWeight;
+  font-size: @fontSize * 1.5;
+}
+
+.nav>li>a {
+  /*Nav Bar Button Distance from Top*/
+  padding: 15px 0px;
+  /*Nav Bar Button Distance Between*/
+  margin-left: 15px;
+  /*Nav Bar Button Color*/
+  color: white;
+}
+
+.login {
+  width: @fontSize * 8;
+  height: @fontSize * 3;
+  margin-top: 5px;
+  margin-left: 20px;
+  background: none;
+  font-size: @fontSize * 1.5;
+  font-weight: 100;
+  border: 1px solid white;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  text-decoration: none;
+  :focus {
+    outline-width: 5px;
+  }
+  > a {
+    /*Login Button Color*/
+    color: #0E65E5;
+  }
+}
+
+.navbar-toggle {
+  margin-top: @navbarMarginTop;
+  margin-right: 50px;
+}
+
+.icon-bar {
+  background-color: lime;
+}
+
+.input {
+  color: lime;
+  font-family: @fontPrimary;
+  font-weight: 100;
+  text-decoration: none;
+  font-size: 50px;
+  margin-bottom: 5px;
+}
+
+.block {
+  font-weight: lighter;
+  color: lime;
+  font-size: 40px;
+  margin-left: 10px;
+  animation: blink 1s infinite;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: lime;
+  font-family: @fontPrimary;
+  font-weight: @fontWeight;
+  font-size: @brandFontSize;
+  margin-top: @navbarMarginTop;
+  margin-left: 70px;
+  font-style: italic;
+  text-align: center;
+  text-decoration: inherit;
+}
+
+@keyframes blink{
+  to{opacity: .0;}
+}
+
+.card{
+  position: relative;
+  width: @brandWidth;
+  height: @brandHeight;
+  transition: all 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.front, .back {
+  position: absolute;
+  background: black;
+  width: @brandWidth;
+  height: @brandHeight;
+  color: white;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.5), 0 10px 10px 0 rgba(0, 0, 0, 0.5);
+  backface-visibility: hidden;
+}
+
+.front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background: none;
+  box-shadow: none;
+}
+
+body:hover .card {
+  transform: rotateY(180deg);
+  transition-delay: 0.25s;
+}
+
+body:hover .block {
+  display: none;
+  animation: blink 0s;
+}
+
+
+
+/* BANNER */
+.banner {
+  height: 1100px;
+  background-image: url("/img/cover.png");
+  background-repeat: no-repeat;
+  background-position: center 0;
+}
+
+.title {
+  font-family: @fontPrimary;
+  font-size: @fontSize * 2;
+  font-weight: @fontWeight * 2;
+  text-align: center;
+  color: #0E65E5;
+  letter-spacing: -.5px;
+}
+
+.subtitle {
+  font-family: @fontPrimary;
+  font-size: @fontSize * 1.5;
+  font-weight: @fontWeight;
+  color: #A9B1B5;
+  line-height: 1.5em;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+
+
+/*
+.sidebar {
+  z-index: 1;
+  width: 15%;
+  position: relative;
+  text-align: center;
+  background-color: #0E65E5;
+  p {
+    color: white;
+    font-weight: 200;
+  }
+}
+
+*/

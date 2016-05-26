@@ -1,37 +1,70 @@
-var gulp = require('gulp');
-var less = require('gulp-less');
-var pug = require('gulp-pug');
-var bower = require('gulp-bower');
-var sync = require('browser-sync');
-var source = "src";
-var deploy = "dist";
+const gulp = require('gulp');
+const less = require('gulp-less');
+const pug = require('gulp-pug');
+const bower = require('gulp-bower');
+const autoprefixer = require('autoprefixer');
+const imagemin = require('gulp-imagemin');
+const postcss = require('gulp-postcss');
+const cleancss = require('gulp-clean-css');
+const renamecss = require('gulp-rename');
+const sync = require('browser-sync');
+const source = "src";
+const deploy = "dist";
 
 gulp.task('less', function () {
-  return gulp.src(source + '/less/*.less')
+  return gulp.src(source + '/views/less/*.less')
     .pipe(less())
+    .pipe(gulp.dest(source + '/views/css'))
+});
+
+gulp.task('prefix', function () {
+  return gulp.src(source + '/views/css/*.css')
+    .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] })] ))
+    .pipe(gulp.dest(source + '/views/css'))
+});
+
+gulp.task('minify', function() {
+  return gulp.src(source + '/views/css/*.css')
+    .pipe(cleancss())
+    .pipe(gulp.dest(source + '/views/css'));
+});
+
+gulp.task('renamecss', function () {
+  return gulp.src(source + '/views/css/*.css')
+    .pipe(renamecss({extname: ".min.css"}))
     .pipe(gulp.dest(deploy + '/css'))
 });
 
+gulp.task('img', function () {
+    gulp.src(source + '/views/img/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest(deploy + '/img'))
+});
+
 gulp.task('pug', function () {
-  return gulp.src(source + '/*.pug')
+  return gulp.src(source + '/views/pug/*.pug')
     .pipe(pug())
     .pipe(gulp.dest(deploy))
 });
 
 gulp.task('bower', function() {
-  return bower(source + '/bower_components')
+  return bower(source + '/views/bower_components')
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task('sync', ['less', 'pug', 'bower'], function() {
+gulp.task('sync', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug'], function() {
   sync({
     server: {
       baseDir: deploy
     }
   });
-  gulp.watch(source + '/less/*.less', ['less']);
-  gulp.watch(source + '/*.pug', ['pug']);
-  gulp.watch(source + '/pug/*.pug', ['pug']);
+  gulp.watch(source + '/views/img/*', ['img']);
+  gulp.watch(source + '/views/less/*.less', ['less']);
+  gulp.watch(source + '/views/css/*.css', ['prefix', 'minify', 'renamecss']);
+  gulp.watch(source + '/views/pug/*', ['pug']);
+  gulp.watch(source + '/views/pug/include/*', ['pug']);
+
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
+  gulp.watch(deploy + '/img/*').on('change', sync.reload);
 });
