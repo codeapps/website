@@ -13,8 +13,7 @@
     "build": "gulp build",
     "sync": "gulp sync",
     "ide": "npm run global && npm run local",
-    "update": "npm update --save-dev",
-    "check": "npm-check-updates"
+    "update": "npm update --save-dev"
   },
   "author": "XYZ",
   "license": "ISC",
@@ -22,7 +21,7 @@
     "autoprefixer": "latest",
     "body-parser": "latest",
     "browser-sync": "latest",
-    "colors": "^1.1.2",
+    "colors": "latest",
     "cookie-parser": "latest",
     "debug": "latest",
     "express": "latest",

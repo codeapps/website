@@ -68,6 +68,8 @@ gulp.task('sync', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
+
+  return console.log("Sync Successful!".green);
 });
 
 gulp.task('build', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug'], function() {
