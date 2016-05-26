@@ -5,6 +5,10 @@ node_modules/
 *.log
 npm-debug.log*
 
-# System 
+# System
 
 .DS_Store
+
+# Distribution
+
+dist/
