@@ -8,6 +8,7 @@
     "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
+    "build" : "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector",
     "sync": "gulp sync"
   },
   "author": "XYZ",
