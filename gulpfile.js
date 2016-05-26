@@ -8,6 +8,7 @@ const postcss = require('gulp-postcss');
 const cleancss = require('gulp-clean-css');
 const renamecss = require('gulp-rename');
 const sync = require('browser-sync');
+const colors = require('colors');
 const source = "src";
 const deploy = "dist";
 
@@ -67,4 +68,8 @@ gulp.task('sync', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
+});
+
+gulp.task('build', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug'], function() {
+  return console.log("Build Successful!".green);
 });
