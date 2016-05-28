@@ -1,6 +1,7 @@
 # Dependency Directories
 node_modules/
 bower_modules/
+public/
 
 # Log
 *.log
