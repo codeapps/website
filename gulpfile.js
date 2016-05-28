@@ -1,15 +1,15 @@
-var gulp = require('gulp');
-var less = require('gulp-less');
-var pug = require('gulp-pug');
-var bower = require('gulp-bower');
-var imagemin = require('gulp-imagemin');
-var cleancss = require('gulp-clean-css');
-var rename = require('gulp-rename');
-var nodemon = require('gulp-nodemon');
-var sync = require('browser-sync').create();
-var colors = require('colors');
-var deploy = "public";
-var reload = sync.reload;
+const gulp = require('gulp');
+const less = require('gulp-less');
+const pug = require('gulp-pug');
+const bower = require('gulp-bower');
+const imagemin = require('gulp-imagemin');
+const cleancss = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const nodemon = require('gulp-nodemon');
+const sync = require('browser-sync');
+const colors = require('colors');
+const deploy = "public";
+const reload = sync.reload;
 
 gulp.task('pug', function () {
   return gulp.src('views/*.pug')
@@ -46,34 +46,40 @@ gulp.task('bower', function() {
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task('nodemon', function(cb) {
-  var started = false;
-  nodemon({
-    script: './bin/www',
-    tasks: ['sync']
-  }).on('start', function () {
-      if (!started) {
-  		started = true;
-      cb();
-      }
-  }).on('error', function(err) {
-      throw err;
-    });
-});
-
-gulp.task('build', ['less', 'pug', 'minify', 'rename', 'bower', 'img'], function() {
+gulp.task('build', ['pug', 'less', 'minify', 'rename', 'bower', 'img'], function() {
   return console.log("Build Successful!".green);
 });
 
-gulp.task('sync', function() {
+var BROWSER_SYNC_RELOAD_DELAY = 200;
+gulp.task('nodemon', function (cb) {
+  var called = false;
+  return nodemon({
+    script: './bin/www',
+    watch: ['./bin/www']
+  }).on('start', function () {
+    if (!called) {
+      cb();
+      called = true;
+    }
+  }).on('restart', function () {
+    setTimeout(function recharge() {
+      reload({
+        stream: false
+      });
+    }, BROWSER_SYNC_RELOAD_DELAY);
+  });
+});
+
+gulp.task('sync', ['nodemon'], function() {
   sync.init({
-    proxy: 'http://localhost:3000',
+    proxy: "localhost:3000",
     port: 4000,
+    ui: false,
     online: false
-  })
-  gulp.watch('views/*.pug', 'pug');
-  gulp.watch('views/img/*', 'img');
-  gulp.watch('views/less/*.less', 'less');
+  });
+  gulp.watch('views/*.pug', ['pug']);
+  gulp.watch('views/img/*', ['img']);
+  gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['minify', 'rename']);
   gulp.watch(deploy + '/css/*.css').on('change', reload);
   gulp.watch(deploy + '/*.html').on('change', reload);
@@ -81,4 +87,7 @@ gulp.task('sync', function() {
   console.log("Sync Successful!".green);
 });
 
-gulp.task('start', ['build', 'nodemon']);
+gulp.task('start', ['build', 'sync'], function() {
+  sync.reload;
+  return console.log("Start Successful!".green);
+});
