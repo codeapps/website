@@ -93,9 +93,10 @@ gulp.task('debug', ['sync'], function() {
       inject: true,
       sslKey: '',
       sslCert: ''
-    }))
+    }));
     sync.create('Inspector').init({
-      proxy: "http://127.0.0.1:8080/?port=5858"
+      proxy: "http://localhost:8080/?port=5858",
+      port: 8080
     });
     console.log("Inspector Successful!".green);
 });
