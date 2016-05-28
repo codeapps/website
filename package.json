@@ -8,6 +8,7 @@
     "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
+    "start": "npm run build && npm run sync && node ./bin/www", 
     "global": "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
     "local": "npm install && bower install",
     "build": "gulp build",
