@@ -8,9 +8,10 @@
     "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
-    "start": "npm run build & npm run sync",
+    "start": "gulp start",
     "global": "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
     "local": "npm install & bower install",
+    "demon": "gulp nodemon",
     "build": "gulp build",
     "sync": "gulp sync",
     "check_node": "ncu",
@@ -19,7 +20,7 @@
     "update_node": "ncu -u",
     "update_bower": "bower update -a/--upgradeAll",
     "update_all": "npm run update & npm run update bower",
-    "tools": "node-debug ./bin/www"
+    "tools": "node-debug app.js"
   },
   "author": "XYZ",
   "license": "ISC",
@@ -32,9 +33,10 @@
     "express": "latest",
     "gulp": "latest",
     "gulp-bower": "latest",
-    "gulp-clean-css": "latest",
+    "gulp-clean-css": "lastest",
     "gulp-imagemin": "latest",
     "gulp-less": "latest",
+    "gulp-node-inspector": "^0.1.0",
     "gulp-nodemon": "^2.0.7",
     "gulp-pug": "latest",
     "gulp-rename": "latest",

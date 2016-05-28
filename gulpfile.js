@@ -6,6 +6,7 @@ const imagemin = require('gulp-imagemin');
 const cleancss = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const nodemon = require('gulp-nodemon');
+const inspector = require('gulp-node-inspector');
 const sync = require('browser-sync');
 const colors = require('colors');
 const deploy = "public";
@@ -49,16 +50,18 @@ gulp.task('build', ['pug', 'less', 'minify', 'rename', 'bower', 'img'], function
   return console.log("Build Successful!".green);
 });
 
-var BROWSER_SYNC_RELOAD_DELAY = 200;
 gulp.task('nodemon', function (cb) {
   var called = false;
   return nodemon({
     script: './bin/www',
+    debug: 'true',
+    verbose: true,
     watch: ['./bin/www']
   }).on('start', function () {
     if (!called) {
       cb();
       called = true;
+      console.log("Nodemon Successful!".green);
     }
   });
 });
@@ -70,6 +73,7 @@ gulp.task('sync', ['nodemon'], function() {
     ui: false,
     online: false
   });
+
   gulp.watch('views/*.pug', ['pug']);
   gulp.watch('views/pug/*.pug', ['pug']);
   gulp.watch('views/img/*', ['img']);
@@ -82,6 +86,29 @@ gulp.task('sync', ['nodemon'], function() {
 });
 
 gulp.task('start', ['build', 'sync'], function() {
-  sync.reload;
-  return console.log("Start Successful!".green);
+  console.log("Start Successful!".green);
+});
+
+gulp.task('inspect', function () {
+  inspector({
+    debugPort: 5858,
+    webHost: 'localhost:4000',
+    webPort: 8080,
+    saveLiveEdit: true,
+    preload: false,
+    inject: true,
+    stackTraceLimit: 50,
+    sslKey: '',
+    sslCert: ''
+  });
+  sync.create().init({
+    proxy: "127.0.0.1:8080/?port=5858",
+    port: 8080,
+    ui: false,
+    online: false
+  });
+});
+
+gulp.task('debug', ['inspect','sync'], function() {
+  console.log("Debugging!".red);
 });
