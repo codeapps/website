@@ -71,6 +71,7 @@ gulp.task('sync', ['nodemon'], function() {
     online: false
   });
   gulp.watch('views/*.pug', ['pug']);
+  gulp.watch('views/pug/*.pug', ['pug']);
   gulp.watch('views/img/*', ['img']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['minify', 'rename']);

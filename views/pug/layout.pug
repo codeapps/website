@@ -1,12 +1,18 @@
 doctype html
 html(lang="en")
   head
-    include links.pug
     title= Codeapps
+    include javascript.pug
+    include stylesheet.pug
   body
     header
       include navbar.pug
       include banner.pug
-    block content
+    article
+      block content
+      section
+        include section.pug
+    aside
+      include aside.pug
     footer
       include footer.pug
