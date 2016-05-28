@@ -9,7 +9,6 @@ const nodemon = require('gulp-nodemon');
 const sync = require('browser-sync');
 const colors = require('colors');
 const deploy = "public";
-const reload = sync.reload;
 
 gulp.task('pug', function () {
   return gulp.src('views/*.pug')
@@ -20,17 +19,17 @@ gulp.task('pug', function () {
 gulp.task('less', function () {
   return gulp.src('views/less/*.less')
     .pipe(less())
-    .pipe(gulp.dest(deploy + '/css'))
+    .pipe(gulp.dest('views/css'))
 });
 
 gulp.task('minify', function() {
   return gulp.src('views/css/*.css')
     .pipe(cleancss())
-    .pipe(gulp.dest(deploy + '/css'))
+    .pipe(gulp.dest('views/css'))
 });
 
 gulp.task('rename', function () {
-  return gulp.src(deploy + '/css/*.css')
+  return gulp.src('views/css/*.css')
     .pipe(rename({extname: ".min.css"}))
     .pipe(gulp.dest(deploy + '/css'))
 });
@@ -61,12 +60,6 @@ gulp.task('nodemon', function (cb) {
       cb();
       called = true;
     }
-  }).on('restart', function () {
-    setTimeout(function recharge() {
-      reload({
-        stream: false
-      });
-    }, BROWSER_SYNC_RELOAD_DELAY);
   });
 });
 
@@ -81,9 +74,9 @@ gulp.task('sync', ['nodemon'], function() {
   gulp.watch('views/img/*', ['img']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['minify', 'rename']);
-  gulp.watch(deploy + '/css/*.css').on('change', reload);
-  gulp.watch(deploy + '/*.html').on('change', reload);
-  gulp.watch(deploy + '/img/*').on('change', reload);
+  gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
+  gulp.watch(deploy + '/*.html').on('change', sync.reload);
+  gulp.watch(deploy + '/img/*').on('change', sync.reload);
   console.log("Sync Successful!".green);
 });
 
