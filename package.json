@@ -8,18 +8,18 @@
     "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
-    "start": "npm run build && npm run sync && node ./bin/www", 
+    "start": "",
     "global": "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
-    "local": "npm install && bower install",
+    "local": "npm install & bower install",
     "build": "gulp build",
     "sync": "gulp sync",
-    "check": "ncu",
+    "check_node": "ncu",
     "check_bower": "ncu -m bower",
-    "check_all": "npm run check && npm run check_bower",
+    "check_all": "npm run check_node & npm run check_bower",
     "update": "ncu -u",
     "update_bower": "bower update -a/--upgradeAll",
-    "update_all" : "npm run update && npm run update bower",
-    "ide": "npm run global && npm run local"
+    "update_all": "npm run update & npm run update bower",
+    "tools": "node-debug app.js"
   },
   "author": "XYZ",
   "license": "ISC",
@@ -36,11 +36,13 @@
     "gulp-clean-css": "latest",
     "gulp-imagemin": "latest",
     "gulp-less": "latest",
+    "gulp-nodemon": "^2.0.7",
     "gulp-postcss": "latest",
     "gulp-pug": "latest",
     "gulp-rename": "latest",
     "gulp-uglify": "latest",
     "gulp-uglify-cli": "latest",
+    "morgan": "^1.7.0",
     "pug": "latest",
     "serve-favicon": "latest"
   }
