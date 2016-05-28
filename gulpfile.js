@@ -49,54 +49,64 @@ gulp.task('build', ['pug', 'less', 'minify', 'rename', 'bower', 'img'], function
   return console.log("Build Successful!".green);
 });
 
-gulp.task('nodemon', function (cb) {
-  var called = false;
-  return nodemon({
-    script: ['--debug ./bin/www'],
-    verbose: false
-  }).on('start', function () {
-    if (!called) {
-      cb();
-      called = true;
-      console.log("Nodemon Successful!".green);
-    }
-  });
+
+
+
+
+
+
+
+
+gulp.task('start', ['sync'], function () {
+  const open = require('gulp-open');
+  gulp.src(['./'])
+    .pipe(open({
+      uri: 'http://localhost:8080/?port=5858',
+      app: 'google chrome'
+    }));
 });
 
-gulp.task('sync', ['nodemon'], function() {
-  sync.create('Sync').init({
+gulp.task('sync', ['debug', 'nodemon'], function() {
+  sync.init({
     proxy: "localhost:2000",
-    port: 3000,
-    ui: false,
-    online: false
+    port: 3000
   });
   gulp.watch('views/*.pug', ['pug']);
   gulp.watch('views/pug/*.pug', ['pug']);
   gulp.watch('views/img/*', ['img']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['minify', 'rename']);
+
+  gulp.watch('routes/*.js').on('change', sync.reload);
+  gulp.watch('models/*.js').on('change', sync.reload);
   gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
   console.log("Sync Successful!".green);
 });
 
-gulp.task('debug', ['sync'], function() {
+gulp.task('debug', function() {
   const inspector = require('gulp-node-inspector');
   gulp.src([])
-    .pipe(inspector({
-      debugPort: 5858,
-      webHost: 'localhost',
-      webPort: 8080,
-      saveLiveEdit: true,
-      preload: false,
-      inject: true,
-      sslKey: '',
-      sslCert: ''
-    }));
-    sync.create('Inspector').init({
-      proxy: "http://localhost:8080/?port=5858",
-      port: 8080
-    });
+    .pipe(inspector());
     console.log("Inspector Successful!".green);
+});
+
+gulp.task('nodemon', function (cb) {
+  var called = false;
+  nodemon({
+    script: ['--debug ./bin/www'],
+    verbose: false
+  }).on('start', function () {
+    if (!called) {
+      cb();
+      called = true;
+      sync.reload();
+      console.log("Nodemon Started!".green);
+    }
+  })
+  .on('restart', function () {
+
+      console.log('Nodemon Restarted!')
+  });
 });
