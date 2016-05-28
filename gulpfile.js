@@ -7,9 +7,16 @@ const imagemin = require('gulp-imagemin');
 const postcss = require('gulp-postcss');
 const cleancss = require('gulp-clean-css');
 const renamecss = require('gulp-rename');
+const nodemon = require('gulp-nodemon');
 const sync = require('browser-sync');
 const colors = require('colors');
 const deploy = "public";
+
+gulp.task('pug', function () {
+  return gulp.src('views/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest(deploy))
+});
 
 gulp.task('less', function () {
   return gulp.src('views/less/*.less')
@@ -41,29 +48,34 @@ gulp.task('img', function () {
         .pipe(gulp.dest(deploy + '/img'))
 });
 
-gulp.task('pug', function () {
-  return gulp.src('views/pug/*.pug')
-    .pipe(pug())
-    .pipe(gulp.dest(deploy))
-});
-
 gulp.task('bower', function() {
   return bower('bower_modules/')
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task('sync', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug'], function() {
+gulp.task('nodemon', function(cb) {
+  return nodemon({
+      script: './bin/www'
+      // script: './bin/www/app.js'
+    })
+    .on('start', function () {
+      cb();
+    })
+    .on('error', function(err) {
+     throw err;
+   });
+});
+
+gulp.task('sync', ['nodemon'], function() {
   sync({
     server: {
       baseDir: deploy
     }
   });
+  gulp.watch('views/*.pug', ['pug']);
   gulp.watch('views/img/*', ['img']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['prefix', 'minify', 'renamecss']);
-  gulp.watch('views/pug/*', ['pug']);
-  gulp.watch('views/pug/include/*', ['pug']);
-
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
@@ -71,6 +83,6 @@ gulp.task('sync', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug
   return console.log("Sync Successful!".green);
 });
 
-gulp.task('build', ['img', 'bower', 'less', 'prefix', 'minify', 'renamecss', 'pug'], function() {
+gulp.task('build', ['pug', 'img', 'bower', 'less', 'prefix', 'minify', 'renamecss'], function() {
   return console.log("Build Successful!".green);
 });
