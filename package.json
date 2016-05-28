@@ -2,13 +2,13 @@
   "name": "codeapps",
   "version": "1.0.0",
   "description": "Website",
-  "main": "index.js",
+  "main": "app.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/codeapps/website.git"
   },
   "scripts": {
-    "start": "",
+    "start": "npm run build & npm run sync",
     "global": "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
     "local": "npm install & bower install",
     "build": "gulp build",
@@ -16,10 +16,10 @@
     "check_node": "ncu",
     "check_bower": "ncu -m bower",
     "check_all": "npm run check_node & npm run check_bower",
-    "update": "ncu -u",
+    "update_node": "ncu -u",
     "update_bower": "bower update -a/--upgradeAll",
     "update_all": "npm run update & npm run update bower",
-    "tools": "node-debug app.js"
+    "tools": "node-debug ./bin/www"
   },
   "author": "XYZ",
   "license": "ISC",

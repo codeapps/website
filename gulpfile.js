@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 const imagemin = require('gulp-imagemin');
 const postcss = require('gulp-postcss');
 const cleancss = require('gulp-clean-css');
-const renamecss = require('gulp-rename');
+const rename = require('gulp-rename');
 const nodemon = require('gulp-nodemon');
 const sync = require('browser-sync');
 const colors = require('colors');
@@ -21,23 +21,23 @@ gulp.task('pug', function () {
 gulp.task('less', function () {
   return gulp.src('views/less/*.less')
     .pipe(less())
-    .pipe(gulp.dest('views/css'))
+    .pipe(gulp.dest(deploy + '/css'))
 });
 
 gulp.task('prefix', function () {
   return gulp.src('views/css/*.css')
     .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] })] ))
-    .pipe(gulp.dest('views/css'))
+    .pipe(gulp.dest(deploy + '/css'))
 });
 
 gulp.task('minify', function() {
   return gulp.src('views/css/*.css')
     .pipe(cleancss())
-    .pipe(gulp.dest('views/css'));
+    .pipe(gulp.dest(deploy + '/css'))
 });
 
-gulp.task('renamecss', function () {
-  return gulp.src('views/css/*.css')
+gulp.task('rename', function () {
+  return gulp.src(deploy + '/css/*.css')
     .pipe(renamecss({extname: ".min.css"}))
     .pipe(gulp.dest(deploy + '/css'))
 });
@@ -66,6 +66,10 @@ gulp.task('nodemon', function(cb) {
    });
 });
 
+gulp.task('build', ['pug', 'img', 'bower', 'less', 'prefix', 'minify', 'renamecss'], function() {
+  return console.log("Build Successful!".green);
+});
+
 gulp.task('sync', ['nodemon'], function() {
   sync({
     server: {
@@ -79,10 +83,5 @@ gulp.task('sync', ['nodemon'], function() {
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
-
   return console.log("Sync Successful!".green);
-});
-
-gulp.task('build', ['pug', 'img', 'bower', 'less', 'prefix', 'minify', 'renamecss'], function() {
-  return console.log("Build Successful!".green);
 });
