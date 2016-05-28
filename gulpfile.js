@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const sync = require('browser-sync');
+const nodemon = require('gulp-nodemon');
 const colors = require('colors');
 const deploy = "public";
 
@@ -49,13 +50,10 @@ gulp.task('build', ['pug', 'less', 'minify', 'rename', 'bower', 'img'], function
 });
 
 gulp.task('nodemon', function (cb) {
-  const nodemon = require('gulp-nodemon');
   var called = false;
   return nodemon({
-    script: './bin/www',
-    debug: 'true',
-    verbose: true,
-    watch: ['./bin/www']
+    script: ['--debug ./bin/www'],
+    verbose: false
   }).on('start', function () {
     if (!called) {
       cb();
@@ -66,9 +64,9 @@ gulp.task('nodemon', function (cb) {
 });
 
 gulp.task('sync', ['nodemon'], function() {
-  sync.init({
-    proxy: "localhost:3000",
-    port: 4000,
+  sync.create('Sync').init({
+    proxy: "localhost:2000",
+    port: 3000,
     ui: false,
     online: false
   });
@@ -83,27 +81,21 @@ gulp.task('sync', ['nodemon'], function() {
   console.log("Sync Successful!".green);
 });
 
-gulp.task('start', ['build', 'sync'], function() {
-  console.log("Start Successful!".green);
-});
-
-gulp.task('inspect', function() {
+gulp.task('debug', ['sync'], function() {
   const inspector = require('gulp-node-inspector');
   gulp.src([])
     .pipe(inspector({
       debugPort: 5858,
-      webHost: 'localhost:4000',
+      webHost: 'localhost',
       webPort: 8080,
-      saveLiveEdit: false,
-      preload: true,
+      saveLiveEdit: true,
+      preload: false,
       inject: true,
-      hidden: [],
-      stackTraceLimit: 50,
       sslKey: '',
       sslCert: ''
-    }));
-});
-
-gulp.task('debug', ['inspect', 'sync'], function() {
-  console.log("Debugging!".red);
+    }))
+    sync.create('Inspector').init({
+      proxy: "http://127.0.0.1:8080/?port=5858"
+    });
+    console.log("Inspector Successful!".green);
 });
