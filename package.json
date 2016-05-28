@@ -24,7 +24,6 @@
   "author": "XYZ",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer": "latest",
     "body-parser": "latest",
     "browser-sync": "latest",
     "colors": "latest",
@@ -37,7 +36,6 @@
     "gulp-imagemin": "latest",
     "gulp-less": "latest",
     "gulp-nodemon": "^2.0.7",
-    "gulp-postcss": "latest",
     "gulp-pug": "latest",
     "gulp-rename": "latest",
     "gulp-uglify": "latest",

@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const less = require('gulp-less');
 const pug = require('gulp-pug');
 const bower = require('gulp-bower');
-const autoprefixer = require('autoprefixer');
 const imagemin = require('gulp-imagemin');
 const postcss = require('gulp-postcss');
 const cleancss = require('gulp-clean-css');
@@ -24,12 +23,6 @@ gulp.task('less', function () {
     .pipe(gulp.dest(deploy + '/css'))
 });
 
-gulp.task('prefix', function () {
-  return gulp.src('views/css/*.css')
-    .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] })] ))
-    .pipe(gulp.dest(deploy + '/css'))
-});
-
 gulp.task('minify', function() {
   return gulp.src('views/css/*.css')
     .pipe(cleancss())
@@ -38,7 +31,7 @@ gulp.task('minify', function() {
 
 gulp.task('rename', function () {
   return gulp.src(deploy + '/css/*.css')
-    .pipe(renamecss({extname: ".min.css"}))
+    .pipe(rename({extname: ".min.css"}))
     .pipe(gulp.dest(deploy + '/css'))
 });
 
@@ -66,7 +59,7 @@ gulp.task('nodemon', function(cb) {
    });
 });
 
-gulp.task('build', ['pug', 'img', 'bower', 'less', 'prefix', 'minify', 'renamecss'], function() {
+gulp.task('build', ['pug', 'img', 'bower', 'less', 'minify', 'rename'], function() {
   return console.log("Build Successful!".green);
 });
 
@@ -79,7 +72,7 @@ gulp.task('sync', ['nodemon'], function() {
   gulp.watch('views/*.pug', ['pug']);
   gulp.watch('views/img/*', ['img']);
   gulp.watch('views/less/*.less', ['less']);
-  gulp.watch('views/css/*.css', ['prefix', 'minify', 'renamecss']);
+  gulp.watch('views/css/*.css', ['minify', 'rename']);
   gulp.watch(deploy + '/css/*.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
