@@ -32,6 +32,7 @@
     "debug": "latest",
     "express": "latest",
     "gulp": "latest",
+    "gulp-babel": "^6.1.2",
     "gulp-bower": "latest",
     "gulp-clean-css": "lastest",
     "gulp-imagemin": "latest",
