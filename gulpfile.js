@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const sync = require('browser-sync');
 const nodemon = require('gulp-nodemon');
 const colors = require('colors');
-const deploy = "public";
+const deploy = 'public';
 
 gulp.task('pug', function () {
   const pug = require('gulp-pug');
@@ -28,7 +28,7 @@ gulp.task('minify', function() {
 gulp.task('rename', function () {
   const rename = require('gulp-rename');
   return gulp.src('views/css/*.css')
-    .pipe(rename({extname: ".min.css"}))
+    .pipe(rename({extname: '.min.css'}))
     .pipe(gulp.dest(deploy + '/css'))
 });
 
@@ -46,18 +46,10 @@ gulp.task('bower', function() {
 });
 
 gulp.task('build', ['pug', 'less', 'minify', 'rename', 'bower', 'img'], function() {
-  return console.log("Build Successful!".green);
+  return console.log('Build Successful!'.green);
 });
 
-
-
-
-
-
-
-
-
-gulp.task('start', ['sync'], function () {
+gulp.task('open', function () {
   const open = require('gulp-open');
   gulp.src(['./'])
     .pipe(open({
@@ -66,47 +58,54 @@ gulp.task('start', ['sync'], function () {
     }));
 });
 
-gulp.task('sync', ['debug', 'nodemon'], function() {
-  sync.init({
-    proxy: "localhost:2000",
-    port: 3000
-  });
-  gulp.watch('views/*.pug', ['pug']);
-  gulp.watch('views/pug/*.pug', ['pug']);
-  gulp.watch('views/img/*', ['img']);
-  gulp.watch('views/less/*.less', ['less']);
-  gulp.watch('views/css/*.css', ['minify', 'rename']);
-
-  gulp.watch('routes/*.js').on('change', sync.reload);
-  gulp.watch('models/*.js').on('change', sync.reload);
-  gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
-  gulp.watch(deploy + '/*.html').on('change', sync.reload);
-  gulp.watch(deploy + '/img/*').on('change', sync.reload);
-  console.log("Sync Successful!".green);
-});
-
-gulp.task('debug', function() {
+gulp.task('inspector', function() {
   const inspector = require('gulp-node-inspector');
   gulp.src([])
     .pipe(inspector());
-    console.log("Inspector Successful!".green);
+    console.log('Inspector Successful!'.green);
 });
 
-gulp.task('nodemon', function (cb) {
+gulp.task('sync', ['inspector'], function (cb) {
+  sync.init({
+    proxy: 'localhost:2000',
+    port: 3000,
+    notify: true
+  });
   var called = false;
   nodemon({
-    script: ['--debug ./bin/www'],
+    script: ['./bin/www'],
+    watchOnly: ['./views/*.js', './routes/*.js'],
     verbose: false
   }).on('start', function () {
+
+    gulp.watch('views/*.pug', ['pug']);
+    gulp.watch('views/pug/*.pug', ['pug']);
+    gulp.watch('views/img/*', ['img']);
+    gulp.watch('views/less/*.less', ['less']);
+    gulp.watch('views/css/*.css', ['minify', 'rename']);
+
+    gulp.watch('routes/*.js').on('change', sync.reload);
+    gulp.watch('modules/*.js').on('change', sync.reload);
+
+    gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
+    gulp.watch(deploy + '/*.html').on('change', sync.reload);
+    gulp.watch(deploy + '/img/*').on('change', sync.reload);
+    gulp.watch('./').on('change', sync.reload);
+
+    console.log('Sync Activate!'.green);
+    sync.reload;
+
     if (!called) {
       cb();
       called = true;
-      sync.reload();
       console.log("Nodemon Started!".green);
+      sync.reload;
     }
   })
   .on('restart', function () {
-
-      console.log('Nodemon Restarted!')
+    console.log('Sync Activate!'.green);
+    console.log('Nodemon Restarted!'.green);
   });
+  sync.reload;
+
 });
