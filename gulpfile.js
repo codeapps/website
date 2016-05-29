@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const sync = require('browser-sync');
-const nodemon = require('gulp-nodemon');
+
 const colors = require('colors');
 const deploy = 'public';
 const browser = 'google chrome';
@@ -63,7 +63,7 @@ gulp.task('open', function () {
     }));
 });
 
-gulp.task('inspector', function() {
+gulp.task('inspector', ['sync'], function() {
   const inspector = require('gulp-node-inspector');
   gulp.src([])
     .pipe(inspector({
@@ -88,9 +88,6 @@ gulp.task('watch', function () {
   gulp.watch('views/pug/*.pug', ['pug']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['rename']);
-  gulp.watch('views/img/*', ['img']);
-  gulp.watch('routes/*.js').on('change', sync.reload);
-  gulp.watch('models/*.js').on('change', sync.reload);
   gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
@@ -98,11 +95,17 @@ gulp.task('watch', function () {
 });
 
 gulp.task('nodemon', function (cb) {
+  const nodemon = require('gulp-nodemon');
   var run = false;
   nodemon({
     script: './bin/www',
-    ignore: ['./bower_modules'],
-    watch: ['app.js', './routes/*.js', './models/*.js'],
+    ignore: ['./bower_modules', './public'],
+    watch: [
+      'app.js',
+      'controllers/*.js',
+      'models/*.js',
+      'gulpfile.js'
+    ],
     debug: true,
     verbose: true
   }).on('start', function () {
@@ -111,10 +114,6 @@ gulp.task('nodemon', function (cb) {
       run = true;
       console.log("Nodemon Started!".green);
     }
-    sync.reload;
-  })
-  .on('restart', function () {
-    console.log('Nodemon Restarted!'.green);
   })
   .on('error', function(err) {
       throw err;
