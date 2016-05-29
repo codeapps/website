@@ -3,6 +3,14 @@ const sync = require('browser-sync');
 const nodemon = require('gulp-nodemon');
 const colors = require('colors');
 const deploy = 'public';
+const browser = 'google chrome';
+
+gulp.task('pug', function () {
+  const pug = require('gulp-pug');
+  return gulp.src('views/pug/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest(deploy))
+});
 
 gulp.task('less', function () {
   const less = require('gulp-less');
@@ -38,63 +46,77 @@ gulp.task('bower', function() {
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task('build', ['less', 'rename'], function() {
-  gulp.watch(['views/less/*.less', 'views/less/include/*.less'], ['less']);
-  gulp.watch('views/css/*.css', ['rename']);
+gulp.task('build', ['pug', 'less', 'rename'], function() {
   return console.log('Build Successful!'.green);
 });
 
-gulp.task('deploy', ['build', 'minify', 'img', 'bower', 'watch'], function() {
-  gulp.watch('views/css/*.css', ['minify']);
-  gulp.watch('views/img/*', ['img']);
+gulp.task('deploy', ['build', 'minify', 'img', 'bower'], function() {
   return console.log('Deploy Successful!'.green);
 });
 
 gulp.task('open', function () {
   const open = require('gulp-open');
-  gulp.src(['./'])
+  return gulp.src(['./'])
     .pipe(open({
       uri: 'http://localhost:8080/?port=5858',
-      app: 'google chrome'
+      app: browser
     }));
 });
 
 gulp.task('inspector', function() {
   const inspector = require('gulp-node-inspector');
   gulp.src([])
-    .pipe(inspector());
+    .pipe(inspector({
+    saveLiveEdit: true,
+    preload: true,
+    inject: true
+    }));
     console.log('Inspector Successful!'.green);
 });
 
+gulp.task('sync', ['build', 'nodemon', 'watch'], function () {
+    sync.init({
+      proxy: 'localhost:2000',
+      port: 3000,
+      ui: false,
+      online: false,
+      browser: browser
+    });
+});
+
 gulp.task('watch', function () {
+  gulp.watch('views/pug/*.pug', ['pug']);
+  gulp.watch('views/less/*.less', ['less']);
+  gulp.watch('views/css/*.css', ['rename']);
+  gulp.watch('views/img/*', ['img']);
+  gulp.watch('routes/*.js').on('change', sync.reload);
+  gulp.watch('models/*.js').on('change', sync.reload);
   gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
   gulp.watch(deploy + '/img/*').on('change', sync.reload);
   return console.log('Watch Successful!'.green);
 });
 
-gulp.task('sync', ['nodemon', 'build', 'watch'], function () {
-    sync.init({
-      proxy: 'localhost:2000',
-      port: 3000,
-      notify: true
-    });
-});
-
-gulp.task('nodemon', function () {
-  var called = false;
+gulp.task('nodemon', function (cb) {
+  var run = false;
   nodemon({
-    script: ['./bin/www'],
-    watchOnly: ['./views/*.js', './routes/*.js'],
+    script: './bin/www',
+    ignore: ['./bower_modules'],
+    watch: ['app.js', './routes/*.js', './models/*.js'],
+    debug: true,
     verbose: true
   }).on('start', function () {
-    if (!called) {
+    if (!run) {
       cb();
-      called = true;
+      run = true;
       console.log("Nodemon Started!".green);
     }
+    sync.reload;
   })
   .on('restart', function () {
     console.log('Nodemon Restarted!'.green);
+  })
+  .on('error', function(err) {
+      throw err;
   });
 });
