@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "jquery": "latest",
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "riot": "latest"
   }
 }
