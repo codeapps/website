@@ -12,7 +12,14 @@ gulp.task('pug', function () {
     .pipe(gulp.dest(deploy))
 });
 
-gulp.task("default", function () {
+gulp.task('riot', function () {
+  const riot = require('gulp-riot');
+  gulp.src('views/tag/*.tag')
+      .pipe(riot())
+      .pipe(gulp.dest(deploy);
+});
+
+gulp.task("babel", function () {
   const babel = require("gulp-babel");
   return gulp.src("app.js")
     .pipe(babel())

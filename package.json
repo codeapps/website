@@ -25,6 +25,7 @@
   "author": "XYZ",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.9.0",
     "body-parser": "latest",
     "browser-sync": "latest",
     "colors": "latest",
@@ -46,6 +47,7 @@
     "gulp-uglify": "latest",
     "gulp-uglify-cli": "latest",
     "morgan": "^1.7.0",
+    "passport": "^0.3.2",
     "pug": "latest",
     "serve-favicon": "latest"
   }
