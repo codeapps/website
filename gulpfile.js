@@ -12,6 +12,13 @@ gulp.task('pug', function () {
     .pipe(gulp.dest(deploy))
 });
 
+gulp.task("default", function () {
+  const babel = require("gulp-babel");
+  return gulp.src("app.js")
+    .pipe(babel())
+    .pipe(gulp.dest(deploy));
+});
+
 gulp.task('less', function () {
   const less = require('gulp-less');
   return gulp.src('views/less/*.less')
