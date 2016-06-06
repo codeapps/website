@@ -6,7 +6,7 @@ var tapColorize = require('tap-colorize');
 var deploy = 'public';
 var browser = 'google chrome';
 
-gulp.task('Tape', function () {
+gulp.task('tape', function () {
   return gulp.src('test/*.js')
     .pipe(tape({
       reporter: tapColorize()
@@ -140,4 +140,12 @@ gulp.task('nodemon', function (cb) {
   .on('error', function (err) {
       throw err;
   });
+});
+
+gulp.task('karma', function (done) {
+  var Server = require('karma').Server;
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
