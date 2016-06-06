@@ -44,11 +44,16 @@
     "gulp-pug": "latest",
     "gulp-rename": "latest",
     "gulp-riot": "^0.5.1",
+    "gulp-tape": "0.0.9",
     "gulp-uglify": "latest",
     "gulp-uglify-cli": "latest",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-tap": "^1.0.4",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "pug": "latest",
-    "serve-favicon": "latest"
+    "serve-favicon": "latest",
+    "tape": "^4.5.1"
   }
 }
