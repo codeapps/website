@@ -1,12 +1,12 @@
 var gulp = require('gulp');
 var sync = require('browser-sync');
 var colors = require('colors');
-var tape = require('gulp-tape');
-var tapColorize = require('tap-colorize');
 var deploy = 'public';
 var browser = 'google chrome';
 
 gulp.task('tape', function () {
+  var tape = require('gulp-tape');
+  var tapColorize = require('tap-colorize');
   return gulp.src('test/*.js')
     .pipe(tape({
       reporter: tapColorize()
@@ -148,4 +148,19 @@ gulp.task('karma', function (done) {
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done).start();
+});
+
+gulp.task('shell', function () {
+  var shell = require('gulp-shell');
+  return gulp.src('*.js', {read: false})
+    .pipe(shell([
+      'echo <%= f(file.path) %>',
+      'ls -l <%= file.path %>'
+    ], {
+      templateData: {
+        f: function (s) {
+          return s.replace(/$/, '.bak');
+        }
+      }
+    }));
 });
