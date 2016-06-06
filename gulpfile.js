@@ -1,75 +1,83 @@
-const gulp = require('gulp');
-const sync = require('browser-sync');
+var gulp = require('gulp');
+var sync = require('browser-sync');
+var colors = require('colors');
+var tape = require('gulp-tape');
+var tapColorize = require('tap-colorize');
+var deploy = 'public';
+var browser = 'google chrome';
 
-const colors = require('colors');
-const deploy = 'public';
-const browser = 'google chrome';
+gulp.task('Tape', function () {
+  return gulp.src('test/*.js')
+    .pipe(tape({
+      reporter: tapColorize()
+    }));
+});
 
 gulp.task('pug', function () {
-  const pug = require('gulp-pug');
+  var pug = require('gulp-pug');
   return gulp.src('views/pug/*.pug')
     .pipe(pug())
-    .pipe(gulp.dest(deploy))
+    .pipe(gulp.dest(deploy));
 });
 
 gulp.task('riot', function () {
-  const riot = require('gulp-riot');
+  var riot = require('gulp-riot');
   gulp.src('views/tag/*.tag')
       .pipe(riot())
-      .pipe(gulp.dest(deploy);
+      .pipe(gulp.dest(deploy));
 });
 
 gulp.task("babel", function () {
-  const babel = require("gulp-babel");
+  var babel = require("gulp-babel");
   return gulp.src("app.js")
     .pipe(babel())
     .pipe(gulp.dest(deploy));
 });
 
 gulp.task('less', function () {
-  const less = require('gulp-less');
+  var less = require('gulp-less');
   return gulp.src('views/less/*.less')
     .pipe(less())
-    .pipe(gulp.dest('views/css'))
+    .pipe(gulp.dest('views/css'));
 });
 
 gulp.task('img', function () {
-  const imagemin = require('gulp-imagemin');
+  var imagemin = require('gulp-imagemin');
   return gulp.src('views/img/*')
     .pipe(imagemin())
-    .pipe(gulp.dest(deploy + '/img'))
+    .pipe(gulp.dest(deploy + '/img'));
 });
 
-gulp.task('minify', function() {
-  const cleancss = require('gulp-clean-css');
+gulp.task('minify', function () {
+  var cleancss = require('gulp-clean-css');
   return gulp.src('views/css/*.css')
     .pipe(cleancss())
-    .pipe(gulp.dest('views/css'))
+    .pipe(gulp.dest('views/css'));
 });
 
 gulp.task('rename', function () {
-  const rename = require('gulp-rename');
+  var rename = require('gulp-rename');
   return gulp.src('views/css/*.css')
     .pipe(rename({extname: '.min.css'}))
-    .pipe(gulp.dest(deploy + '/css'))
+    .pipe(gulp.dest(deploy + '/css'));
 });
 
-gulp.task('bower', function() {
-  const bower = require('gulp-bower');
+gulp.task('bower', function () {
+  var bower = require('gulp-bower');
   return bower('bower_modules/')
-    .pipe(gulp.dest(deploy))
+    .pipe(gulp.dest(deploy));
 });
 
-gulp.task('build', ['pug', 'less', 'rename'], function() {
+gulp.task('build', ['pug', 'less', 'rename'], function () {
   return console.log('Build Successful!'.green);
 });
 
-gulp.task('deploy', ['build', 'minify', 'img', 'bower'], function() {
+gulp.task('deploy', ['build', 'minify', 'img', 'bower'], function () {
   return console.log('Deploy Successful!'.green);
 });
 
 gulp.task('open', function () {
-  const open = require('gulp-open');
+  var open = require('gulp-open');
   return gulp.src(['./'])
     .pipe(open({
       uri: 'http://localhost:8080/?port=5858',
@@ -77,8 +85,8 @@ gulp.task('open', function () {
     }));
 });
 
-gulp.task('inspector', ['sync'], function() {
-  const inspector = require('gulp-node-inspector');
+gulp.task('inspector', ['sync'], function () {
+  var inspector = require('gulp-node-inspector');
   gulp.src([])
     .pipe(inspector({
     saveLiveEdit: true,
@@ -109,7 +117,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('nodemon', function (cb) {
-  const nodemon = require('gulp-nodemon');
+  var nodemon = require('gulp-nodemon');
   var run = false;
   nodemon({
     script: './bin/www',
@@ -129,7 +137,7 @@ gulp.task('nodemon', function (cb) {
       console.log("Nodemon Started!".green);
     }
   })
-  .on('error', function(err) {
+  .on('error', function (err) {
       throw err;
   });
 });
