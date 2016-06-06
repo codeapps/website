@@ -21,6 +21,8 @@
   "dependencies": {
     "jquery": "latest",
     "bootstrap": "latest",
-    "riot": "latest"
+    "riot": "latest",
+    "hover": "^2.0.2",
+    "animate.css": "^3.5.1"
   }
 }
