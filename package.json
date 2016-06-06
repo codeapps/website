@@ -54,6 +54,7 @@
     "passport": "latest",
     "pug": "latest",
     "serve-favicon": "latest",
+    "tap-colorize": "^1.2.0",
     "tape": "latest"
   }
 }
