@@ -44,6 +44,7 @@
     "gulp-pug": "latest",
     "gulp-rename": "latest",
     "gulp-riot": "latest",
+    "gulp-shell": "^0.5.2",
     "gulp-tape": "latest",
     "gulp-uglify": "latest",
     "gulp-uglify-cli": "latest",
@@ -52,7 +53,10 @@
     "karma-tap": "latest",
     "morgan": "latest",
     "passport": "latest",
+    "pg": "^4.5.6",
+    "pg-native": "^1.10.0",
     "pug": "latest",
+    "redis": "^2.6.1",
     "serve-favicon": "latest",
     "tap-colorize": "^1.2.0",
     "tape": "latest"
