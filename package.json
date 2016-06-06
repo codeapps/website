@@ -27,6 +27,7 @@
   "devDependencies": {
     "babel-cli": "latest",
     "body-parser": "latest",
+    "bookshelf": "^0.9.5",
     "browser-sync": "latest",
     "colors": "latest",
     "cookie-parser": "latest",
@@ -51,6 +52,7 @@
     "karma": "latest",
     "karma-chrome-launcher": "latest",
     "karma-tap": "latest",
+    "knex": "^0.11.5",
     "morgan": "latest",
     "passport": "latest",
     "pg": "^4.5.6",
@@ -58,6 +60,7 @@
     "pug": "latest",
     "redis": "^2.6.1",
     "serve-favicon": "latest",
+    "tap": "^5.7.2",
     "tap-colorize": "^1.2.0",
     "tape": "latest"
   }
