@@ -74,12 +74,7 @@ a:active :hover :link :visited {
   border-radius: 5px;
   width: 30%;
   position: relative;
-  transition: all 5s ease-in-out;
-}
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
+  transition: all 0.25s ease-in-out;
 }
 .popup .close {
   position: absolute;

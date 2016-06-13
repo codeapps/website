@@ -40,17 +40,18 @@ div.container
         <li><a href="#">Link</a></li>
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
-        a(href="#popup1")
+        a(href="#login")
           button(class="login") MyApps
 
-        div(id='popup1' class='overlay')
+        div(id='login' class='overlay')
           div(class='popup')
             form(class='form-signin', action='/login', method='POST')
-              input(type='text', name='username' class='form-control', placeholder='Email', required, autofocus)
-              input(type='password', name='password' class='form-control', placeholder='Password', required)
-              button(class='btn btn-lg btn-primary btn-block', type='submit') Sign In
-              span.clearfix
-            a(href='/signup') Sign Up
+              input(type='text' name='username' class='form-control', placeholder='Email', required, autofocus)
+              input(type='password' name='password' class='form-control', placeholder='Password', required)
+              button(type='submit' class='btn-primary' ) Log In
+              a(class="close" href="#") &times;
+            a(href='/signup')
+              button(class='btn-primary' ) Sign Up
             #message
             if message
               h1.text-center.error-message #{message}
