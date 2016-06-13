@@ -40,6 +40,20 @@ div.container
         <li><a href="#">Link</a></li>
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
-        <a href="#"><button class="login">MyApps</li></a>
+        a(href="#popup1")
+          button(class="login") MyApps
+
+        div(id='popup1' class='overlay')
+          div(class='popup')
+            form(class='form-signin', action='/login', method='POST')
+              input(type='text', name='username' class='form-control', placeholder='Email', required, autofocus)
+              input(type='password', name='password' class='form-control', placeholder='Password', required)
+              button(class='btn btn-lg btn-primary btn-block', type='submit') Sign In
+              span.clearfix
+            a(href='/signup') Sign Up
+            #message
+            if message
+              h1.text-center.error-message #{message}
+
       </ul>
     </div>
