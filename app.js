@@ -1,14 +1,17 @@
 var express = require('express');
+var session = require('express-session');
+var connect = require('connect');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
-// Controllers
+// Controllers Import
 var index = require('./controllers/index');
 var users = require('./controllers/users');
-
+var strategy = require('./controllers/passport');
 var app = express();
 
 // view engine setup
@@ -19,13 +22,33 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+
+// ensure that the login session is restored in the correct order.
+app.use(session({
+  secret: 'codeapps',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Controllers, Views
+// controllers, views
 app.use('/', index);
 app.use('/users', users);
+
+// auth post
+// Form Action, Autenticate Directive, Paraments
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/dashboard',
+  failureRedirect: '/',
+  failureFlash : true
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
