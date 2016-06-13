@@ -109,6 +109,7 @@ gulp.task('sync', ['build', 'nodemon', 'watch'], function () {
 
 gulp.task('watch', function () {
   gulp.watch('views/pug/*.pug', ['pug']);
+  gulp.watch('views/pug/include/*.pug', ['pug']);
   gulp.watch('views/less/*.less', ['less']);
   gulp.watch('views/css/*.css', ['rename']);
   gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
