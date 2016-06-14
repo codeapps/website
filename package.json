@@ -20,7 +20,8 @@
     "update_node": "ncu -u",
     "update_bower": "bower update -a/--upgradeAll",
     "update_all": "npm run update & npm run update bower",
-    "debug": "gulp inspector"
+    "debug": "gulp inspector",
+    "coverage": "node ./node_modules/.bin/istanbul cover app.js"
   },
   "author": "codeapps",
   "license": "MIT",
@@ -54,6 +55,7 @@
     "gulp-tape": "0.0.9",
     "gulp-uglify": "^1.5.3",
     "gulp-uglify-cli": "^0.1.7",
+    "istanbul": "^0.4.3",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-tap": "^1.0.4",
