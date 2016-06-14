@@ -1,12 +1,10 @@
-@import "include/lesshat";
-
-@fontPrimary: "Helvetica Neue", Helvetica, Arial, sans-serif;
-@fontSize: 15px;
-@fontWeight: 100;
-@brandWidth: 150px;
-@brandHeight: 100px;
-@brandFontSize: 35px;
-@navbarMarginTop: 25px;
+$fontPrimary: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$fontSize: 15px;
+$fontWeight: 100;
+$brandWidth: 150px;
+$brandHeight: 100px;
+$brandFontSize: 35px;
+$navbarMarginTop: 25px;
 
 /*
 * {
@@ -27,8 +25,8 @@ body {
 }
 
 p {
-  font-weight: @fontWeight;
-  font-size: @fontSize;
+  font-weight: $fontWeight;
+  font-size: $fontSize;
   color: white;
 }
 
@@ -41,12 +39,12 @@ a:active :hover :link :visited{
 .form {
   width: 70%;
   height: 50px;
-  font-size: @fontSize;
+  font-size: $fontSize;
   padding-left: 15px;
   font-weight: 100;
   border: 1px solid white;
   color: white;
-  font-family: @fontPrimary;
+  font-family: $fontPrimary;
   background: black;
   text-decoration: none;
   :focus {
@@ -58,7 +56,7 @@ a:active :hover :link :visited{
   width: 25%;
   height: 50px;
   background: none;
-  font-size: @fontSize;
+  font-size: $fontSize;
   font-weight: 100;
   color: white;
   border: 1px solid white;
@@ -120,9 +118,9 @@ a:active :hover :link :visited{
 /* NAVBAR */
 .nav {
   /*Nav Bar Margin Top*/
-  margin-top: @navbarMarginTop;
-  font-weight: @fontWeight;
-  font-size: @fontSize * 1.5;
+  margin-top: $navbarMarginTop;
+  font-weight: $fontWeight;
+  font-size: $fontSize * 1.5;
 }
 
 .nav>li>a {
@@ -135,12 +133,12 @@ a:active :hover :link :visited{
 }
 
 .login {
-  width: @fontSize * 8;
-  height: @fontSize * 3;
+  width: $fontSize * 8;
+  height: $fontSize * 3;
   margin-top: 5px;
   margin-left: 20px;
   background: none;
-  font-size: @fontSize * 1.5;
+  font-size: $fontSize * 1.5;
   font-weight: 100;
   border: 1px solid white;
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -155,7 +153,7 @@ a:active :hover :link :visited{
 }
 
 .navbar-toggle {
-  margin-top: @navbarMarginTop;
+  margin-top: $navbarMarginTop;
   margin-right: 50px;
 }
 
@@ -165,7 +163,7 @@ a:active :hover :link :visited{
 
 .input {
   color: lime;
-  font-family: @fontPrimary;
+  font-family: $fontPrimary;
   font-weight: 100;
   text-decoration: none;
   font-size: 50px;
@@ -185,24 +183,24 @@ a:active :hover :link :visited{
   align-items: center;
   justify-content: center;
   color: lime;
-  font-family: @fontPrimary;
-  font-weight: @fontWeight;
-  font-size: @brandFontSize;
-  margin-top: @navbarMarginTop;
+  font-family: $fontPrimary;
+  font-weight: $fontWeight;
+  font-size: $brandFontSize;
+  margin-top: $navbarMarginTop;
   margin-left: 70px;
   font-style: italic;
   text-align: center;
   text-decoration: inherit;
 }
 
-@keyframes blink{
+$keyframes blink{
   to{opacity: .0;}
 }
 
 .card{
   position: relative;
-  width: @brandWidth;
-  height: @brandHeight;
+  width: $brandWidth;
+  height: $brandHeight;
   transition: all 0.6s ease;
   transform-style: preserve-3d;
 }
@@ -210,8 +208,8 @@ a:active :hover :link :visited{
 .front, .back {
   position: absolute;
   background: black;
-  width: @brandWidth;
-  height: @brandHeight;
+  width: $brandWidth;
+  height: $brandHeight;
   color: white;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.5), 0 10px 10px 0 rgba(0, 0, 0, 0.5);
   backface-visibility: hidden;
@@ -250,18 +248,18 @@ body:hover .block {
 }
 
 .title {
-  font-family: @fontPrimary;
-  font-size: @fontSize * 2;
-  font-weight: @fontWeight * 2;
+  font-family: $fontPrimary;
+  font-size: $fontSize * 2;
+  font-weight: $fontWeight * 2;
   text-align: center;
   color: #0E65E5;
   letter-spacing: -.5px;
 }
 
 .subtitle {
-  font-family: @fontPrimary;
-  font-size: @fontSize * 1.5;
-  font-weight: @fontWeight;
+  font-family: $fontPrimary;
+  font-size: $fontSize * 1.5;
+  font-weight: $fontWeight;
   color: #A9B1B5;
   line-height: 1.5em;
   margin-right: 20%;

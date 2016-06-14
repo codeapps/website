@@ -35,10 +35,10 @@ gulp.task("babel", function () {
     .pipe(gulp.dest(deploy));
 });
 
-gulp.task('less', function () {
-  const less = require('gulp-less');
-  return gulp.src('views/less/*.less')
-    .pipe(less())
+gulp.task('sass', function () {
+  const sass = require('gulp-sass');
+  return gulp.src('views/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('views/css'));
 });
 
@@ -69,7 +69,7 @@ gulp.task('bower', function () {
     .pipe(gulp.dest(deploy));
 });
 
-gulp.task('build', ['pug', 'less', 'rename'], function () {
+gulp.task('build', ['pug', 'sass', 'rename'], function () {
   return console.log('Build Successful!'.green);
 });
 
@@ -110,7 +110,7 @@ gulp.task('sync', ['build', 'nodemon', 'watch'], function () {
 gulp.task('watch', function () {
   gulp.watch('views/pug/*.pug', ['pug']);
   gulp.watch('views/pug/include/*.pug', ['pug']);
-  gulp.watch('views/less/*.less', ['less']);
+  gulp.watch('views/sass/*.scss', ['sass']);
   gulp.watch('views/css/*.css', ['rename']);
   gulp.watch(deploy + '/css/*.min.css').on('change', sync.reload);
   gulp.watch(deploy + '/*.html').on('change', sync.reload);
