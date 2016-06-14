@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "gulp inspector",
-    "global": "sudo npm install -g express-generator less pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
+    "global": "sudo npm install -g express-generator node-sass pug pug-cli gulp-cli nodemon browser-sync bower postcss-cli autoprefixer uglify-js clean-css imagemin imagemin-cli node-inspector npm-check-updates",
     "local": "npm install & bower install",
     "nodemon": "gulp nodemon",
     "build": "gulp build",
