@@ -19,10 +19,14 @@
     "src/"
   ],
   "dependencies": {
-    "jquery": "latest",
-    "bootstrap": "latest",
-    "riot": "latest",
+    "jquery": "^3.0.0",
+    "bootstrap": "4.0",
+    "riot": "^2.4.1",
     "hover": "^2.0.2",
-    "animate.css": "^3.5.1"
+    "animate.css": "^3.5.1",
+    "dynamics.js": "^1.1.0",
+    "mojs": "^0.174.4",
+    "svg-morpheus": "^0.3.2",
+    "vivus": "^0.3.1"
   }
 }
