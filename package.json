@@ -36,7 +36,7 @@
     "gulp": "latest",
     "gulp-babel": "latest",
     "gulp-bower": "latest",
-    "gulp-clean-css": "lastest",
+    "gulp-clean-css": "latest",
     "gulp-imagemin": "latest",
     "gulp-less": "latest",
     "gulp-node-inspector": "latest",
