@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
+    "browser-sync": "^2.13.0",
     "colors": "^1.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
