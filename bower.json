@@ -1,0 +1,35 @@
+{
+  "name": "Website",
+  "description": "CODEAPPS Website",
+  "main": "index.js",
+  "authors": [
+    "codeapps <codeapps@aol.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/codeapps/Website",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "vue": "^2.1.10",
+    "bootstrap": "^3.3.7",
+    "hover": "^2.1.0",
+    "animate.css": "^3.5.2",
+    "dynamics.js": "^1.1.1",
+    "mojs": "^0.288.1",
+    "svg-morpheus": "^0.3.2",
+    "vivus": "^0.4.0",
+    "font-awesome": "fontawesome#^4.7.0",
+    "d3": "^4.6.0",
+    "milligram": "^1.3.0",
+    "bonsai": "^0.4.5",
+    "threejs": "*"
+  }
+}
